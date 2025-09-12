@@ -14,7 +14,7 @@ on:
 jobs:
   deploy:
     outputs:
-      outcome: ${{ step.set-results.outputs.step-results }}
+      outcome: ${{ steps.set-results.outputs.step-results }}
     runs-on: self-hosted
     container:
       image: ubuntu:latest # container to run inside
