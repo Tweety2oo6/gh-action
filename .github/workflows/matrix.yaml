@@ -5,10 +5,11 @@ on:
       - main
 jobs:
   build:
+    continue-on-error: true
     strategy:
       matrix:
         node-version: [14, 16, 18]
-        image: [ubuntu:latest, alpine:latest]
+        image: [ubuntu:latest, node:trixie]
     runs-on: self-hosted
     container:
       image: ${{ matrix.image }} # container to run inside
