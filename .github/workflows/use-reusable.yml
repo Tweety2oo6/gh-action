@@ -95,8 +95,9 @@ jobs:
     container:
       image: ubuntu:latest # container to run inside
     steps:
-      - name: Print deploy results
-        run: echo "The deploy step returned: ${{ needs.deploy.outputs.deploy-info }}"
+      - name: Print deploy outputs
+        run: |
+          echo "Deploy step outcome: ${{ needs.deploy.outputs.deploy-info }}"
   report:
     needs: [lint, deploy]
     if: failure()
