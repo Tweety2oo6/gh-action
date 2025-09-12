@@ -1,0 +1,32 @@
+name: Matrxi Demo
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [14, 16, 18]
+        image: [ubuntu:latest, alpine:latest]
+    runs-on: self-hosted
+    container:
+      image: ${{ matrix.image }} # container to run inside
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Build project
+        run: npm build
