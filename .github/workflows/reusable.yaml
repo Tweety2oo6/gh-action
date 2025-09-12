@@ -1,5 +1,11 @@
 name: Reusable Deploy
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      artifact_name:
+        description: 'Name of the artifact to download'
+        required: true
+        type: string
 jobs:
   build:
 
@@ -7,5 +13,11 @@ jobs:
     container:
       image: ubuntu:latest # container to run inside
     steps:
+      - name: Get artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact_name }}
+      - name: List hashFiles
+        run: ls -lah
       - name: Output information
         run: echo "This is a reusable workflow for deployment!"
