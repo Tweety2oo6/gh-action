@@ -7,9 +7,14 @@ on:
         required: false
         type: string
         default: dist
+    outputs:
+      deploy-info:
+        description: 'Information about the deploy step'
+        value: ${{ jobs.deploy.outputs.outcome }}
 jobs:
-  build:
-
+  deploy:
+    outputs:
+      outcome: ${{ step.set-results.outputs.step-results }}
     runs-on: self-hosted
     container:
       image: ubuntu:latest # container to run inside
@@ -22,3 +27,6 @@ jobs:
         run: ls -lah
       - name: Output information
         run: echo "This is a reusable workflow for deployment!"
+      - name: Set result outputs
+        id: set-results
+        run: echo "::set-output name=step-results::success"

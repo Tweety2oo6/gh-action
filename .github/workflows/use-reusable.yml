@@ -89,6 +89,14 @@ jobs:
     uses: ./.github/workflows/reusable.yaml
     with:
       artifact_name: dist-files
+  print-deploy-results:
+    needs: deploy
+    runs-on: self-hosted
+    container:
+      image: ubuntu:latest # container to run inside
+    steps:
+      - name: Print deploy results
+        run: echo "The deploy step returned: ${{ needs.deploy.outputs.deploy-info }}"
   report:
     needs: [lint, deploy]
     if: failure()
