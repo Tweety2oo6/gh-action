@@ -1,8 +1,8 @@
 name: Matrxi Demo
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 jobs:
   build:
     continue-on-error: true
