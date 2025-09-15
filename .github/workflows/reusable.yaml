@@ -30,3 +30,5 @@ jobs:
       - name: Set result outputs
         id: set-results
         run: echo "::set-output name=step-results::success"
+      - name: Simulate deploy step
+        run: echo "Deploying..."
