@@ -9,7 +9,10 @@ jobs:
   lint:
     runs-on: self-hosted
     container:
-      image: ubuntu:latest # container to run inside
+      image: gitea.dev.bodnarescu.ro/bodcomp/ubuntu:latest # container to run inside
+      credentials:
+        username: ${{ secrets.GITEA_CONTAINER_USER }}
+        password: ${{ secrets.GITEA_CONTAINER_PASSWORD }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
